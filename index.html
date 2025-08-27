@@ -19,59 +19,17 @@
     <div id="result">번역 결과</div>
 
     <script type="module">
-  import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+        const genAI = new GoogleGenerativeAI('AIzaSyBuxqNb7hMANG1Uj6LPBI2VO_-nhmpmhNo');
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
 
-  const API_KEY = "AIzaSyBuxqNb7hMANG1Uj6LPBI2VO_-nhmpmhNo";
-  const genAI = new GoogleGenerativeAI(API_KEY);
+        const presetprompt = 'Translate the following text into Korean: ';
+        const prompt = document.getElementById('inputText').value;
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    alert("죄송합니다. 이 브라우저는 음성 인식 기능을 지원하지 않습니다.");
-  }
-  const recognition = new SpeechRecognition();
-  recognition.interimResults = false;
-  recognition.lang = 'ko-KR';
+        const result = await model.generateContent(presetprompt + prompt);
+        const response = await result.response;
+        const text = response.text();
 
-  // Make functions globally accessible by assigning them to the window object
-  window.startVoiceRecognition = function() {
-    recognition.start();
-    document.getElementById('inputText').value = "음성 입력 중...";
-  };
-
-  window.translateText = async function() {
-    const inputText = document.getElementById('inputText').value;
-    const resultDiv = document.getElementById('result');
-
-    if (!inputText || inputText === "음성 입력 중..." || inputText === "음성 인식에 실패했습니다.") {
-      resultDiv.textContent = "번역할 텍스트를 입력하거나 말해주세요.";
-      return;
-    }
-
-    resultDiv.textContent = "번역 중...";
-
-    try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-      const prompt = `Translate the following text into Korean: "${inputText}"`;
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const translatedText = response.text();
-      resultDiv.textContent = translatedText;
-    } catch (error) {
-      console.error("번역 중 오류 발생:", error);
-      resultDiv.textContent = "번역에 실패했습니다. 다시 시도해주세요.";
-    }
-  };
-
-  recognition.addEventListener('result', (event) => {
-    const transcript = event.results[0][0].transcript;
-    document.getElementById('inputText').value = transcript;
-    window.translateText(); // Call the global function
-  });
-
-  recognition.addEventListener('error', (event) => {
-    console.error('음성 인식 오류:', event.error);
-    document.getElementById('inputText').value = "음성 인식에 실패했습니다.";
-  });
-</script>
+        document.getElementById('result').textContent = text;
+    </script>
 </body>
 </html>
