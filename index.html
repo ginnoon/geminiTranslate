@@ -11,6 +11,7 @@
 </head>
 <body>
     <h1>Gemini 번역기</h1>
+    <input type="text" id="apikey"/>
     <textarea id="inputText" placeholder="번역할 텍스트를 입력하세요."></textarea>
     <div class="controls">
         <button onclick="startVoiceRecognition()">🎤</button>
@@ -21,7 +22,8 @@
     <script type="module">
         import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-        const genAI = new GoogleGenerativeAI('AIzaSyBuxqNb7hMANG1Uj6LPBI2VO_-nhmpmhNo');
+        const prompt = document.getElementById('apikey').value;
+        const genAI = new GoogleGenerativeAI();
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
 
         const presetprompt = 'Translate the following text into Korean: ';
