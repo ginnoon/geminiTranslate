@@ -19,6 +19,8 @@
     <div id="result">번역 결과</div>
 
     <script type="module">
+        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
         const genAI = new GoogleGenerativeAI('AIzaSyBuxqNb7hMANG1Uj6LPBI2VO_-nhmpmhNo');
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
 
