@@ -15,7 +15,7 @@
     <textarea id="inputText" placeholder="번역할 텍스트를 입력하세요."></textarea>
     <div class="controls">
         <button onclick="startVoiceRecognition()">🎤</button>
-        <button onclick="translateText()">번역하기</button>
+        <button id="generate">번역하기</button>
     </div>
     <div id="result">번역 결과</div>
 
@@ -35,6 +35,11 @@
         const text = response.text();
 
         document.getElementById('result').textContent = text;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateButton = document.getElementById('generate');
+            generateButton.addEventListener('click', generateContent);
         }
     </script>
 </body>
