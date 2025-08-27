@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini 번역기</title>
+    <style>
+        button.mic-button { padding: 10px; font-size: 16px; cursor: pointer; border: none; background-color: #28a745; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-left: 10px; }
+        .controls { display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+    <h1>Gemini 번역기</h1>
+    <textarea id="inputText" placeholder="번역할 텍스트를 입력하세요."></textarea>
+    <div class="controls">
+        <button onclick="startVoiceRecognition()">🎤</button>
+        <button onclick="translateText()">번역하기</button>
+    </div>
+    <div id="result">번역 결과</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
