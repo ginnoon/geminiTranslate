@@ -23,8 +23,8 @@
         import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
         function translateText() {
-        const prompt = document.getElementById('apikey').value;
-        const genAI = new GoogleGenerativeAI();
+        const key = document.getElementById('apikey').value;
+        const genAI = new GoogleGenerativeAI(key);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
 
         const presetprompt = 'Translate the following text into Korean: ';
